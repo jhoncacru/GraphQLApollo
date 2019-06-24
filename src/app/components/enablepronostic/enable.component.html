@@ -1,0 +1,171 @@
+<body-card title="Enabling Forecasters">
+
+    <div class="form-group row col-sm-12">
+      <ul class="nav nav-tabs" role="tablist">
+          <li class="nav-item">
+            <a id="tabpronostic" name="tabpronostic" class="nav-link active" href="#profile" role="tab" data-toggle="tab">Pronostic</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#buzz" role="tab" data-toggle="tab">Winners</a>
+          </li>
+      </ul> 
+    </div>
+    <div class="form-group row">
+      <!-- Tab panes -->
+        
+      <div class="tab-content col-md-12">
+          <div role="tabpanel" class="tab-pane fade in active show" id="profile">
+           
+                <div class="form-group row col-sm-12">      
+                    <div class="col-sm-3 col-form-label text-right">
+                      <label>Date</label>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="input-group">
+                        <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+                        <div class="input-group-append">
+                          <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+                            <img src="https://image.flaticon.com/icons/svg/42/42446.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-2">
+                      <button  class="btn btn-primary mb-2" (click)="search()">Search</button>
+                    </div>      
+                </div>
+
+                <div class="col-md-12">
+                   
+                    <fieldset class="scheduler-border">
+                        <legend class="scheduler-border">Matches of the selected date</legend>
+                  
+                        <div class="row"  *ngFor="let match of matches">                          
+                          <div class="col-sm-12">
+                            <div class="row">                  
+                              <div class="col-md-2"></div>
+                              <div class=" col-sm-2 text-center">
+                                <span>
+                                  <h3>{{match.eventFirstTeam.team.name}}</h3>
+                                </span>
+                              </div>
+                              <div class="col-sm-1 text-center">
+                                  <img width="50px" height="30px" src="{{match.eventFirstTeam.team.teamPictureUrl}}" />
+                                </div>
+                              <div class=" col-sm-1 text-center">
+                                <label>
+                                  <h2>Vs</h2>
+                                </label>
+                              </div>
+                              <div class=" col-sm-1 text-center">
+                                  <img width="50px" height="30px" src="{{match.eventSecondTeam.team.teamPictureUrl}}" />
+                              </div>
+                              <div class=" col-sm-2 text-center">
+                                <span>
+                                  <h3>{{match.eventSecondTeam.team.name}}</h3>
+                                </span>
+                              </div>                              
+                            </div>
+                          </div>
+
+                          <div class="row col-md-12">
+                            <table class="table table-responsive table-hover">
+                              <thead>                              
+                                  <tr class="clickable" data-toggle="collapse" data-target="#group-of-rows-1" aria-expanded="false" aria-controls="group-of-rows-1">
+                                      <th colspan="3"><i class="fa fa-plus" aria-hidden="true"></i>
+                                        See registered Pronostics
+                                      </th>                                      
+                                  </tr>
+                              </thead>                                  
+                              <tbody id="group-of-rows-1" class="collapse">
+                                  <tr>
+                                      <td>- child row</td>
+                                      <td>data 1</td>
+                                      <td>data 1</td>  
+                                      <td>data 1</td>
+                                  </tr>                                  
+                              </tbody>                              
+                          </table>
+                          </div>
+                        </div>                  
+                      </fieldset>
+
+                  </div>
+
+                <div class="form-group row">
+                  
+                  <table class="table table-bordered table-striped table-sm  table-responsive">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th style="width:20%">
+                            <label>Username</label>
+                        </th>
+                        <th style="width:30%">
+                          <label>Email</label>    
+                        </th>
+                        <th style="width:50%"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr  *ngFor="let item of playerItems; let i = index">
+                        <td >
+                          <label>{{i + 1}}</label>
+                        </td>
+                        <td>
+                            <label>{{item.username}}</label>
+                        </td>
+                        <td>
+                           <label>{{item.email}}</label>
+                        </td>
+                        <td>
+                          <button (click)="enablePronostic(item.id)">Enable</button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+
+                </div> 
+          
+          </div>
+          <div role="tabpanel" class="tab-pane fade" id="buzz">
+                              
+                  <fieldset class="scheduler-border" >
+                      <legend class="scheduler-border">{{match?.matchDate | date:'dd MMMM'}}</legend>
+                      <div class="row">
+                          <div class=" col-sm-3 text-center">
+                              <h4>{{match?.eventFirstTeam?.team?.name}}</h4>
+                          </div>
+                          <div class=" col-sm-2" style="padding-top: 5px">
+                              <input id="txtFirstTeamGoals" type="text" value="{{match?.resultFirstTeam}}" #firstTeam/>
+                              <label> <input type="checkbox" (change)="changePenal($event)" id="cbxPenalFirst" /> Penal</label>
+                          </div>
+                          <div class=" col-sm-2"  style="padding-top: 5px">
+                              <input id="txtSecondTeamGoals" type="text" value="{{match?.resultSecondTeam}}" #secondTeam/>
+                              <label> <input type="checkbox" (change)="changePenal($event)" id="cbxPenalSecond" /> Penal</label>
+                          </div>
+                          <div class=" col-sm-3 text-center">
+                              <h4>{{match?.eventSecondTeam?.team?.name}}</h4>
+                          </div>
+                          <div class="col-sm-1">
+                            <button (click)="calculate(match.id, firstTeam.value, secondTeam.value)">Calculate and close</button>
+                          </div>                      
+                      </div>
+                      <!-- <div class="row">
+                        <div class="col-sm-3"></div>
+                            <div class="col-sm-2">
+                                <label> <input type="checkbox" (change)="changePenal($event)" id="cbxPenalFirst" /> Penal</label>
+                            </div>
+                            <div class="col-sm-1">
+                                <label> <input type="checkbox" (change)="changePenal($event)" id="cbxPenalSecond" /> Penal</label>
+                            </div>
+                            <div class="col-sm-3"></div>
+                      </div> -->
+
+                      </fieldset>
+              
+          </div>
+        </div> 
+    </div>
+</body-card>

@@ -1,0 +1,65 @@
+<body-card title="All Pronostics">
+  
+  <fieldset class="scheduler-border">
+    <legend class="scheduler-border">{{matchDate | date:'dd MMMM'}}</legend>    
+    <div class="row"  *ngIf="pronosticList[0]?.isClosed">
+      <table class="table table-bordered table-striped table-sm text-center" style="width: 55%;">
+        <thead>
+          <tr>
+            <th>Players</th>
+            <th>
+                <div class="row">
+                    <div class="col-sm-4 text-right">
+                        <img width="50px" height="30px" src="{{firstTeamImg}}"/>
+                    </div>      
+                    <div class="col-sm-8">
+                      <label>{{firstTeam}}</label>
+                    </div>
+                </div>
+            </th>
+            <th>
+                <div class="row">
+                    <div class="col-sm-4 text-right">
+                        <img width="50px" height="30px" src="{{secondTeamImg}}"/>
+                    </div>      
+                    <div class="col-sm-8">
+                      <label>{{secondTeam}}</label>                        
+                    </div>
+                </div>
+              </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of pronosticList">
+            <td >
+              <label>{{item?.player?.username}}</label>
+            </td>
+            <td class="text-center">
+                <h5>                  
+                  <b><label *ngIf="!item?.winByPenalties">{{item?.firstTeamGoals}}</label></b>  
+                  <b><label style="width: 80px; color: white; background-color: green; padding: 7px;" *ngIf="item?.winByPenalties && item?.firstTeamGoals > item?.secondTeamGoals">Penal</label></b>
+                
+                </h5>
+            </td>
+            <td class="text-center">
+                <h5>
+                  <b><label *ngIf="!item?.winByPenalties">{{item?.secondTeamGoals}}</label>  </b>
+                  <b><label style="width: 80px; color: white; background-color: green; padding: 7px;" *ngIf="item?.winByPenalties && item?.secondTeamGoals > item?.firstTeamGoals">Penal</label></b>
+                </h5>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="row" *ngIf="!pronosticList[0]?.isClosed">
+      <h5><b><label>Los resultados se visualizara al comenzar el partido.</label></b></h5>
+    </div>
+    
+    <div class="row">
+      <div class="col-sm-12 text-right">
+          <button class="btn btn-primary" (click)="back()" type="button">Back</button>
+      </div>
+    </div>
+  </fieldset>
+  
+</body-card>

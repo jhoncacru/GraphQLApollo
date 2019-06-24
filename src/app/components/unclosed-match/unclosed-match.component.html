@@ -1,0 +1,54 @@
+<body-card title="Unclosed Matches">
+
+    <div class="col-md-12">
+
+        <fieldset class="scheduler-border" *ngFor="let group of matchesGroup">
+            <legend class="scheduler-border">{{group.date | date:'dd MMMM'}}</legend>
+
+            <div class="row" *ngFor="let match of group.matches">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <p class="text-right">
+                             {{match.matchDate | date:'shortTime'}}
+                            </p>
+                        </div>
+                        <div class=" col-sm-2 text-center">
+                            <span>
+                                <h3>{{match.eventFirstTeam.team.name}}</h3>
+                            </span>
+                        </div>
+                        <div class="col-sm-1 text-center">
+                            <img width="50px" height="30px" src="{{match.eventFirstTeam.team.teamPictureUrl}}" />
+                        </div>
+                        <div class=" col-sm-1 text-center">
+                            <label>
+                                <h2>Vs</h2>
+                            </label>
+                        </div>
+                        <div class=" col-sm-1 text-center">
+                            <img width="50px" height="30px" src="{{match.eventSecondTeam.team.teamPictureUrl}}" />
+                        </div>
+                        <div class=" col-sm-2 text-center">
+                            <span>
+                                <h3>{{match.eventSecondTeam.team.name}}</h3>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </fieldset>
+
+        <div class="row">
+            <div class="col-sm-12 text-right">
+                    <a class="btn btn-primary" [routerLink]="['/pronostic']">
+                            <i class="fa fa-chevron-left"></i> Back
+                        </a>
+            </div>
+          </div>
+
+    </div>
+
+</body-card>

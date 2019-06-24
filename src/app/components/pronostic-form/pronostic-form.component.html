@@ -1,0 +1,65 @@
+<body-card title="Setting your pronostic">
+
+<div class="box-header with-border">
+        
+    <div *ngIf="isSuccessSave" class="alert alert-success" role="alert">
+        Save successfully 
+    </div>
+    
+    <div *ngIf="isErrorSave" class="alert alert-danger" role="alert">
+            Error {{errors}} 
+    </div>
+
+    
+  </div>
+<div class="box-body">
+  <div class="form-group row">
+      <div class="col-md-2"></div>
+      <div class=" col-sm-2 text-center">        
+        <h3>{{pronostic?.match?.eventFirstTeam?.team?.name}}</h3>
+      </div>
+      <div class="col-md-1 text-center">
+        <img width="50px" height="30px" src="{{pronostic?.match?.eventFirstTeam?.team?.teamPictureUrl}}" />  
+      </div>
+      
+      <div class="col-md-1" style="border-right: 1px groove !important;">
+          <input id="txtFirstTeamGoals" [disabled]="pronostic.winByPenalties" class="form-control" placeholder="result" type="number" value="{{pronostic.firstTeamGoals}}" #firstTeamGoals>
+          
+          <label> <input type="checkbox"  (change)="changePenal($event)" id="cbxPenalFirst" [checked]="pronostic.winByPenalties && pronostic.firstTeamGoals > pronostic.secondTeamGoals"/> Penal</label>
+      </div>
+      <div class="col-md-1 ">
+          <input id="txtSecondTeamGoals" [disabled]="pronostic.winByPenalties" class="form-control" placeholder="result" type="number" value="{{pronostic.secondTeamGoals}}" #secondTeamGoals>
+         
+          <label> <input type="checkbox"  (change)="changePenal($event)" id="cbxPenalSecond" [checked]="pronostic.winByPenalties && pronostic.secondTeamGoals > pronostic.firstTeamGoals"/> Penal</label>
+      </div>
+      <div class="col-md-1 text-center">
+            <img width="50px" height="30px" src="{{pronostic?.match?.eventSecondTeam?.team?.teamPictureUrl}}"/>  
+      </div>
+      <div class=" col-sm-2 text-center">                
+        <h3>{{pronostic?.match?.eventSecondTeam?.team?.name}}</h3>
+      </div>
+      
+  </div> 
+  <!-- <div class="form-group row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-1">
+        <label> <input type="checkbox"  (change)="changePenal($event)" id="cbxPenalFirst" [checked]="pronostic.winByPenalties && pronostic.firstTeamGoals > pronostic.secondTeamGoals"/> Penal</label>
+    </div>
+    <div class="col-sm-1">
+        <label> <input type="checkbox"  (change)="changePenal($event)" id="cbxPenalSecond" [checked]="pronostic.winByPenalties && pronostic.secondTeamGoals > pronostic.firstTeamGoals"/> Penal</label>
+    </div>
+    <div class="col-sm-3"></div>
+  </div> -->
+  <br>
+  <div class="form-group row">
+      <div class="col-sm-12 text-right">
+        <button class="btn btn-success" style="margin: 10px;" (click)="save(firstTeamGoals.value, secondTeamGoals.value)">Save</button>
+        <button class="btn btn-primary" (click)="cancel()">Return</button>
+      </div>
+    </div>
+ 
+</div>
+
+
+
+</body-card>
